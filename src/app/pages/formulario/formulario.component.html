@@ -5,7 +5,7 @@
     <form [formGroup]="MyNewForm" (ngSubmit)="enviarFormulario()" class="space-y-6">
       <div class="space-y-2">
         <label for="nombre" class="block text-sm font-medium text-gray-700">Nombre:</label>
-        <input id="nombre" name="nombre" formControlName="nombre" [(ngModel)]="producto.nombre" 
+        <input id="nombre" name="nombre" formControlName="nombre" 
                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
         <div *ngIf="MyNewForm.controls['nombre'].invalid && MyNewForm.controls['nombre'].touched" class="mt-1">
           <p *ngIf="MyNewForm.controls['nombre'].errors?.['required']" class="text-red-500 text-xs italic">El nombre es obligatorio</p>
@@ -15,7 +15,7 @@
     
       <div class="space-y-2">
         <label for="precio" class="block text-sm font-medium text-gray-700">Precio:</label>
-        <input id="precio" name="precio" type="number" formControlName="precio" [(ngModel)]="producto.precio" 
+        <input id="precio" name="precio" type="number" formControlName="precio" 
                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
         <div *ngIf="MyNewForm.controls['precio'].invalid && MyNewForm.controls['precio'].touched" class="mt-1">
           <p *ngIf="MyNewForm.controls['precio'].errors?.['required']" class="text-red-500 text-xs italic">El precio es obligatorio</p>
@@ -25,7 +25,7 @@
     
       <div class="space-y-2">
         <label for="descripcion" class="block text-sm font-medium text-gray-700">Descripción:</label>
-        <textarea id="descripcion" name="descripcion" formControlName="descripcion" [(ngModel)]="producto.descripcion" 
+        <textarea id="descripcion" name="descripcion" formControlName="descripcion" 
                   class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border" 
                   rows="3"></textarea>
         <div *ngIf="MyNewForm.controls['descripcion'].invalid && MyNewForm.controls['descripcion'].touched" class="mt-1">
@@ -37,7 +37,7 @@
     
       <div class="space-y-2">
         <label for="tipoProducto" class="block text-sm font-medium text-gray-700">Tipo de Producto:</label>
-        <select id="tipoProducto" name="tipoProducto" formControlName="tipoProducto" [(ngModel)]="producto.tipoProducto" 
+        <select id="tipoProducto" name="tipoProducto" formControlName="tipoProducto" 
                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
           <option value="">Seleccione un tipo</option>
           <option value="calzado">Calzado</option>
@@ -50,14 +50,14 @@
       </div>
     
       <div class="flex items-center">
-        <input id="productoOferta" name="productoOferta" type="checkbox" formControlName="productoOferta" [(ngModel)]="producto.productoOferta" 
+        <input id="productoOferta" name="productoOferta" type="checkbox" formControlName="productoOferta" 
                class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
         <label for="productoOferta" class="ml-2 block text-sm font-medium text-gray-700">Producto en Oferta</label>
       </div>
     
       <div class="space-y-2">
         <label for="imagen" class="block text-sm font-medium text-gray-700">URL de la Imagen:</label>
-        <input id="imagen" name="imagen" formControlName="imagen" [(ngModel)]="producto.imagen" 
+        <input id="imagen" name="imagen" formControlName="imagen" 
                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
         <div *ngIf="MyNewForm.controls['imagen'].invalid && MyNewForm.controls['imagen'].touched">
           <p class="text-red-500 text-xs italic">La imagen es obligatoria</p>

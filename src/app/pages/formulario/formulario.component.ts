@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators, ValidationErrors, ReactiveFormsModu
 import { FormsModule } from '@angular/forms';
 import { Producto } from '../../interfaces/producto.interface';
 import { CommonModule } from '@angular/common';
+import { ProductoService } from '../../services/producto.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-formulario',
@@ -12,40 +14,51 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./formulario.component.css']
 })
 export class FormularioComponent {
+  constructor(private productoService: ProductoService, private router: Router) {}
+
+  // Formulario con validaciones
   MyNewForm = new FormGroup({
     nombre: new FormControl('', [Validators.required, this.nombreUnicoValidator]),
     precio: new FormControl('', [Validators.required, Validators.min(1)]),
     descripcion: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(200)]),
     tipoProducto: new FormControl('', Validators.required),
-    productoOferta: new FormControl(false, Validators.required),
+    productoOferta: new FormControl(false),
     imagen: new FormControl('', Validators.required),
   });
 
-  //usamos la interfaz creada
-  producto: Producto = {
-    nombre: '',
-    precio: 0,
-    descripcion: '',
-    tipoProducto: '',
-    productoOferta: false,
-    imagen: ''
-  };
-
-  //metodo para enviar el formulario fijandonos en el tipo de dato
-  //que se espera en la interfaz
+  // Enviar el formulario
   enviarFormulario() {
-    this.producto.nombre = this.MyNewForm.value.nombre ?? '';
-    this.producto.precio = Number(this.MyNewForm.value.precio ?? 0);
-    this.producto.descripcion = this.MyNewForm.value.descripcion ?? '';
-    this.producto.tipoProducto = this.MyNewForm.value.tipoProducto ?? '';
-    this.producto.productoOferta = Boolean(this.MyNewForm.value.productoOferta ?? false);
-    this.producto.imagen = this.MyNewForm.value.imagen ?? '';
-    console.log(this.producto);
+    if (this.MyNewForm.valid) {
+      // Crear el producto
+      const nuevoProducto: Producto = {
+        nombre: this.MyNewForm.value.nombre ?? '',
+        precio: Number(this.MyNewForm.value.precio ?? 0),
+        descripcion: this.MyNewForm.value.descripcion ?? '',
+        tipoProducto: this.MyNewForm.value.tipoProducto ?? '',
+        productoOferta: Boolean(this.MyNewForm.value.productoOferta ?? false),
+        imagen: this.MyNewForm.value.imagen ?? '',
+      };
 
-    this.MyNewForm.reset();
+      // Añadir al servicio
+      this.productoService.addProducto(nuevoProducto);
+      
+      // Mostrar alerta y resetear
+      alert('¡Producto añadido correctamente!');
+      this.MyNewForm.reset({
+        nombre: '',
+        precio: '',
+        descripcion: '',
+        tipoProducto: '',
+        productoOferta: false,
+        imagen: ''
+      });
+      
+      // Ir a la página de productos
+      this.router.navigate(['/productos']);
+    }
   }
 
-  // Validador personalizado para verificar que el nombre no se repita
+  // Validador para nombres duplicados
   nombreUnicoValidator(control: AbstractControl): ValidationErrors | null {
     const nombresExistentes = ['Nike Air Max', 'Nike Dunk', 'Nike React'];
     if (nombresExistentes.includes(control.value)) {

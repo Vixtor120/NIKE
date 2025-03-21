@@ -1,1 +1,30 @@
-<p>productos works!</p>
+<div class="min-h-screen bg-gray-100 py-8">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-8">Catálogo de Productos</h2>
+    
+    <div *ngIf="productos.length === 0" class="text-center py-10">
+      <p class="text-xl text-gray-600">No hay productos disponibles.</p>
+      <p class="mt-2">¿Eres administrador? <a routerLink="/formulario" class="text-blue-600 hover:underline">Añade productos aquí</a></p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div *ngFor="let producto of productos" class="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105">
+        <div class="h-48 overflow-hidden">
+          <img [src]="producto.imagen" alt="{{ producto.nombre }}" class="w-full h-full object-cover">
+        </div>
+        <div class="p-4">
+          <div class="flex justify-between items-center">
+            <h3 class="text-lg font-semibold">{{ producto.nombre }}</h3>
+            <span *ngIf="producto.productoOferta" class="bg-red-500 text-white text-xs px-2 py-1 rounded">OFERTA</span>
+          </div>
+          <p class="text-gray-600 mt-1 text-sm">{{ producto.tipoProducto | titlecase }}</p>
+          <p class="mt-2 text-gray-700 line-clamp-2">{{ producto.descripcion }}</p>
+          <div class="mt-4 flex justify-between items-center">
+            <p class="text-lg font-bold">{{ producto.precio }}€</p>
+            <button class="bg-black text-white px-4 py-2 rounded hover:bg-gray-800">Comprar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
